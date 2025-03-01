@@ -21,7 +21,6 @@ const Approach = () => {
         >
           <CanvasRevealEffect
             animationSpeed={5.1}
-            containerClassName="bg-emerald-900 rounded-3xl overflow-hidden"
           />
         </Card>
 
@@ -36,7 +35,7 @@ const Approach = () => {
         >
           <CanvasRevealEffect
             animationSpeed={5.0}
-            containerClassName="bg-emerald-900 rounded-3xl overflow-hidden" // Aynı stil
+            
           />
         </Card>
 
@@ -51,7 +50,7 @@ const Approach = () => {
         >
           <CanvasRevealEffect
             animationSpeed={4.9}
-            containerClassName="bg-emerald-900 rounded-3xl overflow-hidden" // Aynı stil
+            
           />
         </Card>
 
@@ -62,7 +61,14 @@ const Approach = () => {
 
 export default Approach;
 
-const Card = ({ title, icon, children, des }) => {
+interface CardProps {
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  des: string;
+}
+
+const Card: React.FC<CardProps> = ({ title, icon, children, des }) => {
   const [hovered, setHovered] = React.useState(false);
 
   return (
@@ -111,7 +117,7 @@ const Card = ({ title, icon, children, des }) => {
   );
 };
 
-const AceternityIcon = ({ order }) => {
+const AceternityIcon = ({ order }: { order: string }) => {
   return (
     <div>
       <button className="relative inline-flex overflow-hidden rounded-full p-[1px] ">
@@ -124,7 +130,7 @@ const AceternityIcon = ({ order }) => {
   );
 };
 
-export const Icon = ({ className, ...rest }) => {
+export const Icon = ({ className, ...rest }: { className?: string; [key: string]: unknown }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={className} {...rest}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
