@@ -12,7 +12,7 @@ const Approach = () => {
         
         {/* Phase 1 */}
         <Card
-        key="phase11"
+          key="phase11"
           title="Planning & Strategy"
           icon={<AceternityIcon order="Phase 1" />}
           des="We'll collaborate to map out your website's goals, target audience, 
@@ -21,12 +21,13 @@ const Approach = () => {
         >
           <CanvasRevealEffect
             animationSpeed={5.1}
+            colors={["#6366f1", "#a855f7", "#ec4899"]}
           />
         </Card>
 
         {/* Phase 2 */}
         <Card
-        key="phase22"
+          key="phase22"
           title="Development & Progress Update"
           icon={<AceternityIcon order="Phase 2" />}
           des="Once we agree on the plan, I cue my lofi playlist and dive into
@@ -35,13 +36,13 @@ const Approach = () => {
         >
           <CanvasRevealEffect
             animationSpeed={5.0}
-            
+            colors={["#10b981", "#3b82f6", "#8b5cf6"]}
           />
         </Card>
 
         {/* Phase 3 */}
         <Card
-        key="phase33"
+          key="phase33"
           title="Development & Launch"
           icon={<AceternityIcon order="Phase 3" />}
           des="This is where the magic happens! Based on the approved design, 
@@ -50,7 +51,7 @@ const Approach = () => {
         >
           <CanvasRevealEffect
             animationSpeed={4.9}
-            
+            colors={["#f59e0b", "#f97316", "#ef4444"]}
           />
         </Card>
 
@@ -75,7 +76,7 @@ const Card: React.FC<CardProps> = ({ title, icon, children, des }) => {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="border border-black/[0.2] group/canvas-card flex items-center justify-center max-w-sm w-full mx-auto p-4 relative lg:h-[35rem] rounded-3xl"
+      className="border border-black/[0.2] group/canvas-card flex items-center justify-center max-w-sm w-full mx-auto p-4 relative lg:h-[35rem] rounded-3xl overflow-hidden"
       style={{
         background: "rgb(4,7,29)",
         backgroundColor: "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
@@ -87,7 +88,7 @@ const Card: React.FC<CardProps> = ({ title, icon, children, des }) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }} // Exit animasyonunu ekliyoruz
+            exit={{ opacity: 0 }}
             className="h-full w-full absolute inset-0"
           >
             {children}
@@ -102,8 +103,6 @@ const Card: React.FC<CardProps> = ({ title, icon, children, des }) => {
         <h2 className="dark:text-white text-center text-3xl opacity-0 group-hover/canvas-card:opacity-100
          relative z-10 text-black mt-4 font-bold group-hover/canvas-card:text-white 
          group-hover/canvas-card:-translate-y-2 transition duration-200" style={{ color: "#393BB2" }}>
-                    
-
           {title}
         </h2>
         <p className="text-sm opacity-0 group-hover/canvas-card:opacity-100
