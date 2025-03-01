@@ -10,6 +10,17 @@ import {
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
+// Button bileşeni için props tipi tanımlama
+interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
+  borderRadius?: string;
+  children: React.ReactNode;
+  as?: React.ElementType; // 'any' yerine React.ElementType kullanıyoruz
+  containerClassName?: string;
+  borderClassName?: string;
+  duration?: number;
+  className?: string;
+}
+
 export function Button({
   borderRadius = "1.75rem",
   children,
@@ -19,20 +30,10 @@ export function Button({
   duration,
   className,
   ...otherProps
-}: {
-  borderRadius?: string;
-  children: React.ReactNode;
-  as?: any;
-  containerClassName?: string;
-  borderClassName?: string;
-  duration?: number;
-  className?: string;
-  [key: string]: any;
-}) {
+}: ButtonProps) {
   return (
     <Component
       className={cn(
-        // remove h-16 w-40, add  md:col-span-2
         "bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1",
         containerClassName
       )}
@@ -42,7 +43,7 @@ export function Button({
       {...otherProps}
     >
       <div
-        className="absolute inset-0 rounde-[1.75rem]"
+        className="absolute inset-0 rounded-[1.75rem]"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
       >
         <MovingBorder duration={duration} rx="30%" ry="30%">
@@ -70,20 +71,22 @@ export function Button({
   );
 }
 
+// MovingBorder bileşeni için props tipi tanımlama
+interface MovingBorderProps extends React.SVGAttributes<SVGSVGElement> {
+  children: React.ReactNode;
+  duration?: number;
+  rx?: string;
+  ry?: string;
+}
+
 export const MovingBorder = ({
   children,
   duration = 2000,
   rx,
   ry,
   ...otherProps
-}: {
-  children: React.ReactNode;
-  duration?: number;
-  rx?: string;
-  ry?: string;
-  [key: string]: any;
-}) => {
-  const pathRef = useRef<any>();
+}: MovingBorderProps) => {
+  const pathRef = useRef<SVGRectElement>(null); // 'any' yerine SVGRectElement tipi
   const progress = useMotionValue<number>(0);
 
   useAnimationFrame((time) => {

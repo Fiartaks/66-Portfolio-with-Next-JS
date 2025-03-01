@@ -3,6 +3,7 @@
 import { FaLocationArrow } from "react-icons/fa6";
 import { projects } from "@/data"; // projects'ı içeren dosya
 import { PinContainer } from "./ui/Pin";
+import Image from "next/image"; // next/image'ı içe aktar
 
 const RecentProjects = () => {
   return (
@@ -13,9 +14,9 @@ const RecentProjects = () => {
       </h1>
       <div className="flex flex-wrap items-center justify-center p-4 gap-6 mt-10">
         {projects.map((item, index) => (
-          <div 
-          className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]"
-          key={`${item.id}-${index}`} // Benzersiz key için id ve indeksi birleştirdik
+          <div
+            className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]"
+            key={`${item.id}-${index}`} // Benzersiz key için id ve indeksi birleştirdik
           >
             <PinContainer
               title="fiartaks"
@@ -26,12 +27,18 @@ const RecentProjects = () => {
                   className="relative w-full h-full overflow-hidden lg:rounded-3xl"
                   style={{ backgroundColor: "#13162D" }}
                 >
-                  <img src="/bg.png" alt="bgimg" />
+                  <Image
+                    src="/bg.png"
+                    alt="Background image"
+                    className="object-cover"
+                    fill // Kapsayıcıya göre ölçeklenir
+                  />
                 </div>
-                <img
+                <Image
                   src={item.img}
-                  alt="cover"
-                  className="z-10 absolute bottom-0"
+                  alt={item.title || "Project cover"}
+                  className="z-10 absolute bottom-0 object-contain"
+                  fill // Kapsayıcıya göre ölçeklenir
                 />
               </div>
 
@@ -59,7 +66,13 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * iconIndex + 2}px)`,
                       }}
                     >
-                      <img src={icon} alt="icon" className="p-2" />
+                      <Image
+                        src={icon}
+                        alt={`Tech icon ${iconIndex + 1}`}
+                        className="p-2 object-contain"
+                        width={244} // Sabit boyut (lg:w-10 için uygun)
+                        height={244} // Sabit boyut (lg:h-10 için uygun)
+                      />
                     </div>
                   ))}
                 </div>
