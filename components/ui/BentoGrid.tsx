@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
-import Lottie from "react-lottie"; // @types/react-lottie yüklü olmalı
+import dynamic from 'next/dynamic';
 import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./GradientBg";
 import animationData from "@/data/confetti.json";
 import MagicButton from "./MagicButton";
-import Image from "next/image"; // next/image'ı içe aktar
+import Image from "next/image";
+
+const Lottie = dynamic(() => import('react-lottie'), { ssr: false });
 
 export const BentoGrid = ({
   className,
@@ -62,9 +64,12 @@ export const BentoGridItem = ({
   };
 
   const handleCopy = () => {
-    const text = "fiartaks@gmail.com";
-    navigator.clipboard.writeText(text);
-    setCopied(true);
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      const text = "fiartaks@gmail.com";
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true);
+      });
+    }
   };
 
   return (
@@ -85,24 +90,19 @@ export const BentoGridItem = ({
             <Image
               src={img}
               alt={img}
-              // Alt metni, görselin dosya adı yerine daha anlamlı bir şey olabilir
               className={cn(imgClassName, "object-cover object-center")}
               width={520}
               height={320}
             />
           )}
         </div>
-        <div
-          className={`absolute right-0 -bottom-5 ${
-            id === 5 && "w-full opacity-80"
-          }`}
-        >
+        <div className="absolute right-0 -bottom-5 w-full h-full">
           {spareImg && (
             <Image
               src={spareImg}
-              alt={spareImg} // Alt metni, görselin dosya adı yerine daha anlamlı bir şey olabilir
-              className="object-cover object-center w-full h-full"
-              fill // Dinamik boyutlandırma için fill kullanıyoruz
+              alt={spareImg}
+              className="object-cover object-center"
+              fill
             />
           )}
         </div>
