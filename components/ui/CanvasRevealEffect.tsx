@@ -25,7 +25,7 @@ const CanvasRevealEffect = ({
         dot.style.height = `${size}px`;
         dot.style.position = 'absolute';
         dot.style.borderRadius = '50%';
-        dot.style.opacity = 0; // Başlangıçta görünmez
+        dot.style.opacity = "0"; // Düzeltildi: string olarak "0"
         dot.style.animation = `fadeIn 1s forwards`;
         dot.style.left = `${left}%`;
         dot.style.top = `${top}%`;
@@ -34,7 +34,9 @@ const CanvasRevealEffect = ({
         // Ana stil, CSS'de @keyframes kullanarak tanımlanacak
         dot.style.transform = `translate(-50%, -50%)`; // Merkezlemek için
         document.head.appendChild(createStyleSheet());
-        container.appendChild(dot);
+        if (container) {
+          container.appendChild(dot);
+        }
       }
     };
 
@@ -56,8 +58,10 @@ const CanvasRevealEffect = ({
     createDots();
 
     return () => {
-      while (container.firstChild) {
-        container.removeChild(container.firstChild);
+      if (container) {
+        while (container.firstChild) {
+          container.removeChild(container.firstChild);
+        }
       }
     };
   }, [dotsCount, animationSpeed, colors]);
